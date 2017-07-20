@@ -152,14 +152,14 @@ bot.on( "message", function ( msg ) {
                 if ( request[1] === "help" )
                 {
                     return msg.channel.send(
-                        "```css\nParameters with () are mandatory, parameters with [] are optional but don't put () or [] in your message ;)```\n" +
-                        "```http\n!lfg add (game code) [minutes you will wait before starting]\n``` " +
-                        "```css\nwhere minutes have to be a number like `!lfg add 000000` for the default 5 minutes or `!lfg add 000000 6` for 6 minutes``` \n" +
-                        "```http\n!lfg info```" +
-                        "```css\nfor informations about the current game``` \n" +
-                        "```http\n!lfg join``` \n ```css\nto indicate you're joining the game``` \n" +
-                        "```http\n!lfg leave``` ```css\nto indicate you're leaving the game```\n" +
-                        "```http\n!lfg DESTROY```\n ```css\ndestroys the current game if you are the creator. It's in capital letters. It's not a mistake, it's your ALMIGHTY POWER AS A CREATOR!``` \n" +
+                        "```css\nParameters with () are mandatory, parameters with {} are optional but don't put () or {} in your message ;)\n" +
+                        "\n[!lfg add (game code) {minutes you will wait before starting}]" +
+                        "\nwhere minutes have to be a number like '!lfg add 000000' for the default 5 minutes or '!lfg add 000000 6' for 6 minutes\n" +
+                        "\n[!lfg info]" +
+                        "\nfor informations about the current game \n" +
+                        "\n[!lfg join] \nto indicate you're joining the game \n" +
+                        "\n[!lfg leave] \nto indicate you're leaving the game\n" +
+                        "\n[!lfg DESTROY]\ndestroys the current game if you are the creator. It's in capital letters. It's not a mistake, it's your ALMIGHTY POWER AS A CREATOR!```" +
                         " © Harmeko" );
                 }
 
