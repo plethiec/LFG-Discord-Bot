@@ -39,9 +39,10 @@ function getCountDown( game ) {
 var reg    = new RegExp( '^!lfg.*' );
 var regNum = new RegExp( '[0-9]{6}' );
 
-bot.on("ready", function () {
-    bot.user.setGame('Black Survival');
-});
+bot.on( "ready", function () {
+    console.log( "ready." );
+    bot.user.setGame( 'Black Survival' );
+} );
 
 bot.on( "message", function ( msg ) {
         if ( reg.test( msg.content ) )
@@ -151,12 +152,14 @@ bot.on( "message", function ( msg ) {
                 if ( request[1] === "help" )
                 {
                     return msg.channel.send(
-                        "Parameters with () are mandatory, parameters with [] are optional but don't put () or [] in your message ;) \n" +
-                        "`!lfg add (game code) [minutes you will wait before starting]` where minutes have to be a number like `!lfg add 000000` for the default 5 minutes or `!lfg add 000000 6` for 6 minutes \n" +
-                        "`!lfg info` for informations about the current game \n" +
-                        "`!lfg join` to indicate you're joining the game` \n" +
-                        "`!lfg leave` to indicate you're leaving the game \n" +
-                        "`!lfg DESTROY` destroys the current game if you are the creator. It's in capital letters. It's not a mistake, it's your ALMIGHTY POWER AS A CREATOR! \n" +
+                        "```css\nParameters with () are mandatory, parameters with [] are optional but don't put () or [] in your message ;)```\n" +
+                        "```http\n!lfg add (game code) [minutes you will wait before starting]\n``` " +
+                        "```css\nwhere minutes have to be a number like `!lfg add 000000` for the default 5 minutes or `!lfg add 000000 6` for 6 minutes``` \n" +
+                        "```http\n!lfg info```" +
+                        "```css\nfor informations about the current game``` \n" +
+                        "```http\n!lfg join``` \n ```css\nto indicate you're joining the game``` \n" +
+                        "```http\n!lfg leave``` ```css\nto indicate you're leaving the game```\n" +
+                        "```http\n!lfg DESTROY```\n ```css\ndestroys the current game if you are the creator. It's in capital letters. It's not a mistake, it's your ALMIGHTY POWER AS A CREATOR!``` \n" +
                         " © Harmeko" );
                 }
 
