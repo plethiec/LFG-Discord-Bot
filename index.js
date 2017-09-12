@@ -8,9 +8,9 @@ const Countdown = require( 'countdown' );
 const bot = new Discord.Client();
 
 var games = [];
-var comp  = null;
+
+// var comp  = null;
 // var LFGchannel = null;
-// https://discordapp.com/oauth2/authorize?client_id=337172231375421440&scope=bot&permissions=3072
 
 function game( game, name, time, timeStamp ) {
     return {
@@ -40,17 +40,37 @@ var reg    = new RegExp( '^!lfg.*' );
 var regNum = new RegExp( '[0-9]{6}' );
 
 bot.on( "ready", function () {
-    console.log( "ready." );
-    bot.user.setGame( 'Black Survival' );
+    bot.user.setGame( 'use !lfg to start' );
+
 } );
 
 bot.on( "message", function ( msg ) {
+
+        // BASIC GREETINGS / SMALL TALK
+
+        if ( msg.content.toLowerCase().indexOf( "thank" ) != -1 && msg.content.toLowerCase().indexOf( "lfg" ) != -1 &&
+            msg.content.length <= 18 )
+        {
+            return msg.channel.send( "You're welcome" );
+        }
+
+        if ( msg.content.toLowerCase().indexOf( "hello" ) != -1 && msg.content.toLowerCase().indexOf( "lfg" ) != -1 &&
+            msg.content.length <= 18 )
+        {
+            return msg.channel.send( "Hello :D" );
+        }
+
+
+        // LFG RELATED FUNCTIONS
+
         if ( reg.test( msg.content ) )
         {
+
             var request = msg.content.split( ' ' );
 
             if ( request[1] !== undefined )
             {
+
                 if ( request[1] === "join" )
                 {
                     // if ( request[2] !== undefined && regNum.test( request[2] ) )
@@ -138,29 +158,33 @@ bot.on( "message", function ( msg ) {
 
                 if ( request[1] === "DESTROY" )
                 {
-                    if ( msg.author.username === games[0].creator )
+                    if ( games[0] !== undefined )
                     {
-                        games = [];
-                        return msg.channel.send( "Yes master. \n ```Game destroyed```" )
-                    }
-                    else
-                    {
-                        return msg.channel.send( "I don't think so." )
+                        if ( msg.author.username === games[0].creator )
+                        {
+                            games = [];
+                            return msg.channel.send( "Yes master. \n ```Game destroyed```" )
+                        }
+                        else
+                        {
+                            return msg.channel.send( "I don't think so." )
+                        }
                     }
                 }
 
                 if ( request[1] === "help" )
                 {
                     return msg.channel.send(
-                        "```css\nParameters with () are mandatory, parameters with {} are optional but don't put () or {} in your message ;)\n" +
+                        "```css\nThis is Dr. Thomas, a bot made to easily advertise and provide info about black survival private games in discord\n" +
+                        "\nParameters with () are mandatory, parameters with {} are optional but don't put () or {} in your message ;)\n" +
                         "\n[!lfg add (game code) {minutes you will wait before starting}]" +
                         "\nwhere minutes have to be a number like '!lfg add 000000' for the default 5 minutes or '!lfg add 000000 6' for 6 minutes\n" +
                         "\n[!lfg info]" +
                         "\nfor informations about the current game \n" +
                         "\n[!lfg join] \nto indicate you're joining the game \n" +
                         "\n[!lfg leave] \nto indicate you're leaving the game\n" +
-                        "\n[!lfg DESTROY]\ndestroys the current game if you are the creator. It's in capital letters. It's not a mistake, it's your ALMIGHTY POWER AS A CREATOR!```" +
-                        " © Harmeko" );
+                        "\n[!lfg DESTROY]\ndestroys the current game if you are the creator. It's in CAPITAL LETTERS. It's not a mistake, it's your ALMIGHTY POWER AS A CREATOR!```" +
+                        " © Harmeko // Tester: Niva Scarlet" );
                 }
 
                 if ( request[1] === "add" )
@@ -191,19 +215,19 @@ bot.on( "message", function ( msg ) {
                             games.splice( 0, 1 );
                         }, time * 60 * 1000 );
 
-                        msg.guild.channels.find( "name", "test-one" ).send(
+                        return msg.guild.channels.find( "name", "lfg" ).send(
                             "```css\n!----- Private game created -----!```\n" +
                             "```http\n HOST : " + games[index].creator +
                             "\n Slots available : " + games[index].slots +
                             "\n Game code : " + games[index].gameNo +
                             "\n Time left : " + count.toString() + "``` \n" +
-                            "@LFG " + games[index].gameNo );
+                            "<@&326422549644836867> " + games[index].gameNo );
 
-                        return msg.channel.send( "```css\n!----- Private game created -----!```\n" +
-                            "```http\n HOST : " + games[index].creator +
-                            "\n Slots available : " + games[index].slots +
-                            "\n Game code : " + games[index].gameNo +
-                            "\n Time left : " + count.toString() + "```" );
+                        // msg.channel.send( "```css\n!----- Private game created -----!```\n" +
+                        //    "```http\n HOST : " + games[index].creator +
+                        //    "\n Slots available : " + games[index].slots +
+                        //    "\n Game code : " + games[index].gameNo +
+                        //    "\n Time left : " + count.toString() + "```" );
                     }
                     else
                     {
@@ -256,6 +280,39 @@ bot.on( "message", function ( msg ) {
                 return msg.channel.send( "Request is empty, try `!lfg help` if needed " );
             }
         }
+
+        // USER SPECIFIC JOKES
+
+        if ( msg.content.toLowerCase().indexOf( "who" ) != -1 && msg.content.toLowerCase().indexOf( "am" ) != -1 &&
+            msg.content.toLowerCase().indexOf( "i" ) != -1 && msg.author.username == "DazJokahz" )
+        {
+            return msg.channel.send( "The one and only Dark Overlord" );
+        }
+
+        if ( msg.content.toLowerCase().indexOf( "who" ) != -1 && msg.content.toLowerCase().indexOf( "am" ) != -1 &&
+            msg.content.toLowerCase().indexOf( "i" ) != -1 && msg.author.username == "Disgusting." )
+        {
+            return msg.channel.send( "You are disgusting." );
+        }
+
+        if ( msg.content.toLowerCase().indexOf( "who" ) != -1 && msg.content.toLowerCase().indexOf( "am" ) != -1 &&
+            msg.content.toLowerCase().indexOf( "i" ) != -1 && msg.author.username == "Chibiterasu(Epicyoshiizepic)" )
+        {
+            return msg.channel.send( "The Epic Chibi Yoshi!" );
+        }
+
+        if ( msg.content.toLowerCase().indexOf( "who" ) != -1 && msg.content.toLowerCase().indexOf( "am" ) != -1 &&
+            msg.content.toLowerCase().indexOf( "i" ) != -1 && msg.author.username == "Niva Scarlet" )
+        {
+            return msg.channel.send( "Niva is a good tester but abuses bots." );
+        }
+
+        if ( msg.content.toLowerCase().indexOf( "who" ) != -1 && msg.content.toLowerCase().indexOf( "am" ) != -1 &&
+            msg.content.toLowerCase().indexOf( "i" ) != -1 && msg.author.username == "KeyBrokenPC( 애퍼쳐사이언스 )" )
+        {
+            return msg.channel.send( "You are the acclaimed master of JP" );
+        }
+
     }
 )
 ;
